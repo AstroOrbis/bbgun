@@ -1,0 +1,16 @@
+[package]
+name = "bbgun"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "A builder for builders running builders!"
+homepage = "https://github.com/astroorbis/bbgun"
+repository = "https://github.com/astroorbis/bbgun"
+readme = "README.md"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+quote = "1.0.38"
+syn = "2.0.98"
