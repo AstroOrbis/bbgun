@@ -70,10 +70,6 @@ pub fn derive(input: TokenStream) -> TokenStream {
     TokenStream::from(quote! {
         #[automatically_derived]
         impl #name {
-            fn builder() -> #name {
-                #name::default()
-            }
-
             #build_func
 
             #(#field_setters)*

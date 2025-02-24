@@ -10,7 +10,7 @@ pub fn email_parser(input: String) -> String {
 }
 
 fn main() {
-    dbg!(User::builder()
+    dbg!(User::default()
         .active(true)
         .email("Bar@BBz.bAZ".to_string()));
 }
