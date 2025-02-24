@@ -1,6 +1,6 @@
 [package]
 name = "bbgun"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "MIT"
 description = "A builder for builders running builders!"
@@ -12,5 +12,6 @@ readme = "README.md"
 proc-macro = true
 
 [dependencies]
+darling = "0.20.10"
 quote = "1.0.38"
-syn = "2.0.98"
+syn = { version = "2.0.98", features = ["extra-traits"] }

@@ -1,15 +1,16 @@
 #[derive(Default, bbgun::Builder, Debug)]
 struct User {
-    username: String,
-    email: String,
-    sign_in_count: u64,
     active: bool,
+    #[bbgun(transform = "email_parser")]
+    email: String,
+}
+
+pub fn email_parser(input: String) -> String {
+    input.to_lowercase()
 }
 
 fn main() {
     dbg!(User::builder()
-        .username("Foo".to_string())
-        .email("Bar@biz.baz".to_string())
-        .sign_in_count(25043)
-        .active(true));
+        .active(true)
+        .email("Bar@BBz.bAZ".to_string()));
 }
