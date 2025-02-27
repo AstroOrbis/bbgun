@@ -21,6 +21,8 @@ struct Builder {
     build_func: Option<Path>,
     #[darling(default)]
     builds_to: Option<Path>,
+    #[darling(default)]
+    mutable_builder: bool,
 }
 
 #[proc_macro_derive(Builder, attributes(bbgun))]
@@ -47,10 +49,21 @@ pub fn derive(input: TokenStream) -> TokenStream {
             }
         };
 
-        quote! {
-            fn #field_name(&mut self, #field_name: #field_type) -> &mut Self {
-                self.#field_name = #subsetter;
-                self
+        if builder.mutable_builder {
+            quote! {
+                fn #field_name(&mut self, #field_name: #field_type) -> &mut Self {
+                    self.#field_name = #subsetter;
+                    self
+                }
+            }
+        } else {
+            quote! {
+                fn #field_name(self, #field_name: #field_type) -> Self {
+                    Self {
+                        #field_name: #subsetter,
+                        ..self
+                    }
+                }
             }
         }
     });
