@@ -10,6 +10,8 @@ struct BuilderField {
     ty: Type,
     #[darling(default)]
     transform: Option<Path>,
+    #[darling(default)]
+    skip: bool,
 }
 
 #[derive(Debug, FromDeriveInput)]
@@ -36,7 +38,7 @@ pub fn derive(input: TokenStream) -> TokenStream {
         _ => panic!("Only structs are supported"),
     };
 
-    let field_setters = fields.iter().map(|field| {
+    let field_setters = fields.iter().filter(|x| !x.skip).map(|field| {
         let field_name = field.ident.as_ref().unwrap();
         let field_type = &field.ty;
         let subsetter = if let Some(transform) = &field.transform {
